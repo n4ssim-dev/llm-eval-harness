@@ -1,5 +1,15 @@
 import asyncio
 import litellm
+from fastapi import FastAPI
+from .routes.logging import router as logging_router
+from .routes.scoring import router as scoring_router
+from .routes.inference import router as inference_router
+
+app = FastAPI()
+app.include_router(logging_router)
+app.include_router(scoring_router)
+app.include_router(inference_router)
+
 
 async def run_case(case: dict, model: str ) -> dict:
     response = await litellm.acompletion(
