@@ -1,0 +1,8 @@
+[project]
+name = "llm-eval-harness"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "litellm>=1.106.4",
+    "pydantic>=2.14.1",
+]
