@@ -1123,6 +1123,7 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "litellm" },
     { name = "pydantic" },
+    { name = "pydantic-settings" },
 ]
 
 [package.metadata]
@@ -1130,6 +1131,7 @@ requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.162.0" },
     { name = "litellm", specifier = ">=1.106.4" },
     { name = "pydantic", specifier = ">=2.14.1" },
+    { name = "pydantic-settings", specifier = ">=2.16.1" },
 ]
 
 [[package]]
