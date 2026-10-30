@@ -15,3 +15,37 @@ Chaque couche se verra être volontairement minimale pour assurer l'adaption du 
 `>=Python 3.10`
 
 `Clé API LLM` 
+
+## Structure
+
+```
+app/
+├── main.py            # instance FastAPI + /health
+├── core/config.py     # Settings (pydantic-settings, lit le .env)
+├── schemas/eval.py    # modèles Pydantic (EvalCase, InferenceResult, ScoredResult…)
+├── services/          # logique métier : dataset, inference, scoring, logger
+└── api/
+    ├── router.py      # agrège les routers
+    └── routes/        # inference, scoring, logging
+```
+
+## Lancement
+
+```bash
+uv sync
+uv run fastapi dev app/main.py
+```
+
+Documentation interactive : http://127.0.0.1:8000/docs
+
+Variables `.env` : `LLM_API_KEY`, `DEFAULT_MODEL`, `DEFAULT_JUDGE_MODEL`, `LLM_TIMEOUT`, `LLM_NUM_RETRIES`, `DATASET_PATH`, `LOG_PATH`.
+
+## Endpoints
+
+| Méthode | Route | Rôle |
+|---|---|---|
+| GET | `/inference/dataset` | liste le golden dataset |
+| POST | `/inference/run` | exécute le modèle sur le dataset (`model`, `case_ids` optionnels) |
+| POST | `/scoring/` | note des résultats (`judge`: `deterministic` ou `llm`) et les journalise |
+| GET | `/logging/results` | résultats journalisés (`logs/results.jsonl`) |
+| GET | `/logging/summary` | total / réussis / taux de réussite |
